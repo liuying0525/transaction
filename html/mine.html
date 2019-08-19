@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/mine.css"/>
+	</head>
+	<body>
+		<div class="layui-row mine layui-col-md11 layui-col-md-offset1">
+			<div class="layui-col-md6">
+				<span>我的账号</span>
+				<ul>
+					<li>
+						<span>134****5670</span>
+					</li>
+					<li>
+						<i class="layui-icon layui-icon-rate-solid"></i>
+						<text>手机号是您登录的唯一标识，不能变更</text>
+					</li>
+				</ul>
+			</div>
+			<div class="layui-col-md6">
+				<span>修改我的密码</span>
+				<ul>
+					<li>
+						<button type="button" class="layui-btn" id="" data-jump="alter">修改</button>
+					</li>
+					<li>
+						<i class="layui-icon layui-icon-rate-solid"></i>
+						<text>请牢记您的密码，如果忘记，可以在登录页面点击
+							<a href="javascript:void(0);">找回密码</a>
+						</text>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+				<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form;
+				var $=layui.$;
+				
+				$(".mine").click(function(event){
+					  var myid = $(event.target).attr('data-jump');
+  						location.href= myid+'.html';
+				})
+			})
+			</script>
+	</body>
+</html>

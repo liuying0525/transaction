@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		
+	</head>
+
+	<body>
+		<div class="home">
+			<div class="home-right">
+					<div class="layui-row home-top">
+						<div class="layui-form">
+							<div class="layui-form-item layui-row">
+								<div class="layui-inline layui-col-md4">
+									<label class="layui-form-label hometext ">开始时间</label>
+									<input type="text" class="layui-input-inline test-item" placeholder="yyyy-MM-dd">
+									<div class="dateicon"><i class="layui-icon layui-icon-date"></i></div>
+								</div>
+								<div class="layui-inline layui-col-md4">
+									<span class="layui-form-label hometext">终止时间</span>
+									<input type="text" class="layui-input-inline test-item" placeholder="yyyy-MM-dd">
+									<div class="dateicon"><i class="layui-icon layui-icon-date"></i></div>
+								</div>
+								<div class="layui-inline layui-col-md3">
+									<!--<button class="layui-btn layui-btn-lg action">开始执行</button>-->				
+									<div class="layui-input-inline actionbtn">
+										<select name="interest" lay-filter="">
+											<option value="">查看顺序</option>
+											<option value="0">火币网00</option>
+											<option value="1">火币网01</option>
+											<option value="2">火币网02</option>
+											<option value="3">火币网03</option>
+											<option value="4">火币网04</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="home-center">
+						<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+							<ul class="layui-tab-title layui-row ">
+								<li class="layui-this layui-col-md3">
+									法币交易
+								</li>
+								<li class="layui-col-md3">币币交易</li>
+								<li class="layui-col-md3">杠杆交易</li>
+								<li class="layui-col-md3">合约交易</li>
+							</ul>
+							<div class="layui-tab-content">
+								<div class="layui-tab-item layui-show">
+									<table class="layui-hide tableModle" id="tableF" lay-filter="detailTable"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableB" lay-filter="detailTable"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableG" lay-filter="detailTable"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableH" lay-filter="detailTable"></table>
+								</div>
+							</div>
+							<script type="text/html" id="barDemo">
+							  <a class="hometbtn" lay-event="detail">开始执行</a>
+							  <a class="hometbtn" lay-event="edit">编辑</a>
+							  <a class="hometbtn" lay-event="del">删除</a>
+							</script>
+									
+						</div>
+					</div>
+			</div>
+		</div>
+
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'laydate', 'table'], function() {
+				var element = layui.element;
+				var table = layui.table;
+				var layer = layui.layer;
+				var laydate = layui.laydate;
+				var $ = layui.$;
+
+
+				
+				tableData();
+				
+				$(".test-item").each(function() {
+					laydate.render({
+						elem: this,
+						trigger: "click",
+						//		theme: '#1F294E'
+					})
+				})
+				element.on('tab(docDemoTabBrief)', function(data) {
+					console.log(this); //当前Tab标题所在的原始DOM元素
+					console.log(data.index); //得到当前Tab的所在下标
+					console.log(data.elem); //得到当前的Tab大容器
+				});
+
+				function tableData() {
+					$(".tableModle").each(function() {
+						table.render({
+							elem: this,
+							url: 'FeHelper-20190704151843.json',
+							cellMinWidth: 60, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+							cols: [
+								[{type:'checkbox'},{
+										field: 'id',
+										title: '策略名称',
+										align:'center',
+										width:'25%',
+									},{
+										field: 'username',
+										title: '策略信息',
+										align:'center',
+										width:"48%"
+									
+									}, {field: 'sex', title:'操作', toolbar: '#barDemo',align:'center',width:"25%"}
+									]],
+							skin: "nob",
+							done: function(res, curr, count) {
+
+								//如果是异步请求数据方式，res即为你接口返回的信息。
+								//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+								console.log(res);
+
+								//得到当前页码
+								console.log(curr);
+
+								//得到数据总量
+								console.log(count);
+									
+							}
+						});
+					})
+				}
+				parent.layui.$("#mainNav").on("click", 'li:eq(1)', function() {
+					layer.open({
+						skin: 'layui-layer-demo',
+						type: 1,
+						title: ['API设置'],
+						content: $("#demo")
+					});
+				})
+				
+				//监听工具条
+				table.on('tool(detailTable)',function(obj){
+					var data=obj.data;
+					if(obj.event==="detail"){
+						layer.msg('ID:'+data.id+' 的查看操作');
+					}else if(obj.event==='del'){
+						layer.confirm('真的删除行么',function(index){
+							obj.del();
+							layer.close(index);
+						});
+					}else if(obj.event==='edit'){
+//						layer.alert('编辑行：<br>'+JSON.stringify(data))
+						layer.open({
+						  type: 2,
+						  area: ['80%', '500px'],
+						  fixed: false, //不固定
+						  maxmin: true,
+						  skin:'policy-skin',
+						  content: 'policyEdit.html',
+						  title:'编辑策略'
+						  
+						});
+
+					}
+				});
+				
+
+			})
+		</script>
+	</body>
+
+</html>

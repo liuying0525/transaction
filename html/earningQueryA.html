@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>收益查询</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/earningQueryA.css" />
+
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-layout-admin earningQueryA">
+			<div class="layui-header">
+				<div class="layui-main layui-row">
+					<div class="layui-col-md3">
+						<div class="layui-logo">
+							<img src="../img/logo.png" /> 欢迎使用码神量化交易系统
+						</div>
+					</div>
+					<div class="layui-col-md1 layui-form">
+						<div class="layui-input-inline eartopselect">
+							<select name="interest" lay-filter="">
+								<option value="">请选择平台</option>
+								<option value="0" selected="">合约交易</option>
+								<option value="1">法币交易</option>
+								<option value="2">币币交易</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-col-md7 layui-col-md-offset1">
+						<ul class="statistics">
+							<li>总下单数：<span>5</span></li>
+							<li>平均交易盈利：<span>32.75</span></li>
+							<li>总手续费：<span>-3.58</span></li>
+							<li>总盈利：<span>45.27</span></li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+			<!--内容主体区域-->
+			<div class="container">
+				<div class="layui-main">
+					<div class="timeselect" id="chekOption">
+						<ul>
+							<li data-vdata="day" class="timeselected">日</li>
+							<li data-vdata="week">周</li>
+							<li data-vdata="month">月</li>
+							<li data-vdata="da">季</li>
+							<li data-vdata="year">年</li>
+						</ul>
+
+					</div>
+					<div class="timeselect rmbselect" id="chekRMB">
+						<ul>
+							<li data-vdata="BTC" class="timeselected">BTC</li>
+							<li data-vdata="USDT">USDT</li>
+							<li data-vdata="RMB">人民币</li>
+						</ul>
+					</div>
+					<table class="layui-hide tableModle" id="tableEar" lay-filter="tableEar"></table>
+		
+					</table>
+				</div>
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'form', 'laydate', 'table'], function() {
+				var form = layui.form;
+				var element = layui.element;
+				var table = layui.table;
+				var layer = layui.layer;
+				var laydate = layui.laydate;
+				var $ = layui.$;
+
+				function tableinit(optitle) {
+					//table.cols[5].title = optitle;
+
+					var tbtitle = "日";
+
+					switch(optitle) {
+						case "week":
+							{
+								tbtitle = "周";
+							}
+							break;
+						case "month":
+							{
+								tbtitle = "月";
+							}
+							break;
+						case "da":
+							{
+								tbtitle = "季";
+							}
+							break;
+						case "year":
+							{
+								tbtitle = "年";
+							}
+							break;
+					}
+					
+					
+			
+					table.render({
+						elem: "#tableEar",
+						url: 'earningQueryA.json',
+						skin: 'row',
+						even: true,		
+						cellMinWidth:60,
+						cols: [
+							[{
+									field: 'sort',
+									title: '序号',
+									align: 'center',
+									type: 'numbers',
+									width: 40
+
+								}, {
+									field: 'id',
+									title: '账号',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'username',
+									title: '策略名称',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'sex',
+									title: '执行时间',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'city',
+									title: '执行时长(天)',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'sign',
+									title: tbtitle + '均下单数',
+									sort: true,
+									align: 'center'
+								} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+								, {
+									field: 'score',
+									title: '盈利占比',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'classify',
+									title: '亏损占比',
+									sort: true,
+									align: 'center'
+								}, {
+									field: 'wealth',
+									title: tbtitle + '均收益<b class="layui-icon layui-icon-add-1" data-iconbtn="jun"></b>',
+									sort: true,
+									align: 'center'
+								},
+								{
+									field: 'wealth',
+									title: '手续费',
+									sort: true,
+									align: 'center'
+								},
+								{
+									field: 'wealth',
+									title: '总盈利<b class="layui-icon layui-icon-add-1" data-iconbtn="all"></b>',
+									sort: true,
+									align: 'center'
+								},
+								{
+									field: 'wealth',
+									title: '最大盈利',
+									sort: true,
+									align: 'center'
+								},
+								{
+									field: 'wealth',
+									title: '最大亏损',
+									sort: true,
+									align: 'center'
+								},
+							]
+						],
+						skin: "nob",
+						done: function(res, curr, count) {
+
+							//如果是异步请求数据方式，res即为你接口返回的信息。
+							//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+							console.log(res);
+
+							//得到当前页码
+							console.log(curr);
+
+							//得到数据总量
+							console.log(count);
+							
+							$('.layui-icon-add-1').on('click', function(e) {
+								var showBox;
+								if($(e.target).data('iconbtn')=='jun'){
+									showBox=$("#chekOption");
+								}else{
+									showBox=$('#chekRMB');
+								}
+
+								if(showBox[0].style.display == 'none'||showBox[0].style.display == '') {
+									showBox.show();
+								} else {
+									showBox.hide();
+								}
+								if(e && e.stopPropagation) {
+									e.stopPropagation();
+								} else {
+									window.event.cancelBubble = true;
+								}
+
+							});
+							form.render();
+							table.render()
+						}
+					});
+					form.render();
+				}
+				tableinit("");
+
+				$(".timeselect").on("click", "ul li", function(e) {
+					var opvalue = $(this).data("vdata");
+					console.log("opvalue=" + opvalue);
+					tableinit(opvalue);
+					$(this).addClass("timeselected").siblings().removeClass("timeselected");
+					$('.timeselect').hide();
+				});
+
+			})
+		</script>
+	</body>
+
+</html>

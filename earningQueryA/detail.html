@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>收益查询</title>
+		<link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+		<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui@2.11.0/lib/theme-chalk/index.css"> -->
+		<link rel="stylesheet" type="text/css" href="./css/earningQueryA.css"/>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div class="topbar">
+				<div class="wrapper flex flex-flow-row">
+					<div class="slogan"><img src="./img/logo.png">欢迎使用码神量化交易系统</div>
+				</div>
+			</div>
+
+			<div id="head">
+				<ul class="wrapper table table-head flex flex-flow-row">
+					<li class="tab-20">交易时间</li>
+					<li class="tab-21">当前账户权益(BTC)</li>
+					<li class="tab-22">交易类型</li>
+					<li class="tab-23">交易价格(USD)</li>
+					<li class="tab-24">交易合约张数</li>
+					<li class="tab-25">持仓数量(BTC)</li>
+					<li class="tab-26">盈利额(BTC)</li>
+					<li class="tab-27">亏损额(BTC)</li>
+					<li class="tab-28">手续费(BTC)</li>
+				</ul>
+			</div>
+			
+			<transition-group class="wrapper table table-content" name="list-complete" tag="ul" id="box">
+				<li class="flex flex-flow-row" v-for="(item, idx) in tableData" :key="idx">
+					<div class="tab-20">{{ item.createTime }}</div>
+					<div class="tab-21">{{ item.bond | cutNum }}</div>
+					<div class="tab-22">{{ typeMap[item.type] }}</div>
+					<div class="tab-23">{{ item.open | cutNum(2) }}</div>
+					<div class="tab-24">{{ item.volume }}</div>
+					<div class="tab-25">{{ item.availableBond | cutNum }}</div>
+					<div class="tab-26 color-red">{{ item.profit | cutNum | prettyZero }}</div>
+					<div class="tab-27 color-green">{{ item.loss | cutNum | prettyZero }}</div>
+					<div class="tab-28 color-green">{{ item.charge | cutNum }}</div>
+				</li>
+				<li v-if="tableData.length === 0" style="text-align: center">--暂时没有数据--</li>
+			</transition-group>
+
+			<div v-show="status.msg" :class="[status.state, 'appStatus']">{{ status.msg }}</div>
+		</div>
+
+		<script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+		<!-- <script src="https://unpkg.com/element-ui@2.11.0/lib/index.js"></script> -->
+		<!-- <script src="https://unpkg.com/moment@2.24.0/moment.js"></script> -->
+		<script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
+		<script type="text/javascript">
+			var app, ws;
+			var reg_int = /^\d+$/;
+			var reg_float = /^\d+(\.\d+)?$/;
+
+			// moment
+			// moment.locale('zh-cn')
+
+			// axios
+			axios.interceptors.request.use(req => {
+				var t = []
+				var p
+				for (p in req.data) {
+					t.push(p + '=' + window.encodeURIComponent(req.data[p]))
+				}
+
+				req.data = t.join('&')
+				return req
+			}, () => {
+				return Promise.reject(new Error('Request Error'))
+			})
+
+			axios.interceptors.response.use(res => {
+				if (res.data.code === 1000) {
+					return res.data
+				}
+				return Promise.reject(res.data.msg)
+			}, (err) => {
+				return Promise.reject(err)
+			})
+
+			// 全局过滤器
+			// Vue.filter('fmtDate', function (value) {
+			// 	return moment(value).format('YY-MM-DD HH:mm:ss')
+			// })
+			// 保存小数点后面4位小数
+			Vue.filter('cutNum', function (value, n) {
+				!n && (n = 4)
+				return Number(value).toFixed(n)
+			})
+			// 值为0就不显示
+			Vue.filter('prettyZero', function (value) {
+				if (Number(value) === 0) {
+					return ''
+				}
+				return value
+			})
+			app = new Vue({
+				el: '#app',
+				data: {
+					tableData: [],
+					typeMap: {
+						1: '开多',
+						2: '开空',
+						3: '平多',
+						4: '平空',
+						5: '止损'
+					},
+					status: {
+						state: '',
+						msg: ''
+					}
+				},
+				methods: {
+					fetch: function (p) {
+						axios.post('/recordList', p).then(res => {
+							this.tableData.splice(0)
+							this.tableData = res.msg
+							this.status.msg = ''
+						}).catch(err => {
+							this.status.state = 'error'
+							this.status.msg = err
+						})
+					}
+				},
+				created: function () {
+					var p = document.location.search.slice(1)
+					if (!p) {
+						this.status.state = 'error'
+						this.status.msg = "没有参数..."
+						return
+					}
+
+					p = p.split('=')
+
+					if (p.length !== 2 || p[0] !== 'strategyKey') {
+						this.status.state = 'error'
+						this.status.msg = "参数错误..."
+						return
+					}
+
+					this.fetch({ strategyKey: p[1] })
+				}
+			})
+
+			var $head = document.getElementById('head')
+			var $box = document.getElementById('box')
+
+			document.onscroll = function () {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+
+				if (scrollTop > 120) {
+					$head.style.position = 'fixed'
+					$head.style.width = '100%'
+					$head.style.top = '0'
+					$head.style.left = '0'
+				} else {
+					$head.style.position = 'static'
+				}
+			}
+		</script>
+	</body>
+</html>

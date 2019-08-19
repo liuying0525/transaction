@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/policy.css" />
+		<title>交易参数设置</title>
+	</head>
+
+	<body>
+		<div class="policy policySecond layui-col-md12 ">
+			<div class="layui-row layui-form">
+				<div class="layui-row layui-form-item">
+					<div class="layui-col-md12">
+						<label class="layui-form-label">平台名称</label>
+						<div class="layui-col-md9">
+							<select name="interest" lay-filter="">
+								<option value="">请选择平台</option>
+								<option value="0">火币网00</option>
+								<option value="1">火币网01</option>
+								<option value="2">火币网02</option>
+								<option value="3">火币网03</option>
+								<option value="4">火币网04</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+					<ul class="layui-tab-title layui-row">
+						<li class="layui-this layui-col-md3">合约交易</li>
+						<li class="layui-col-md3">币币交易</li>
+						<li class="layui-col-md3">杠杆交易</li>
+						<li class="layui-col-md3">法币交易</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-tab-item layui-show">
+							<form action="" class="policyinput layui-row">
+								<blockquote class="layui-elem-quote">WR配合MACD设置</blockquote>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md12">
+										<label class="layui-form-label">WR/MACD分时</label>
+										<div class="layui-col-md9">
+											<select name="interest" lay-filter="">
+												<option value="">请选择时长</option>
+												<option value="0">5min</option>
+												<option value="1">10min</option>
+												<option value="2" selected="">15min</option>
+												<option value="3">20min</option>
+												<option value="4">25min</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="14">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">MACD快线长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="14">
+										</div>
+									</div>
+
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR偏离值</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="5">
+
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">MACD慢线长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="5">
+										</div>
+									</div>
+
+								</div>
+
+								<blockquote class="layui-elem-quote">MACD设置</blockquote>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md12">
+										<label class="layui-form-label">MACD分时</label>
+										<div class="layui-col-md9">
+											<select name="interest" lay-filter="">
+												<option value="">请选择时长</option>
+												<option value="0">5min</option>
+												<option value="1">10min</option>
+												<option value="2" selected="">15min</option>
+												<option value="3">20min</option>
+												<option value="4">25min</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">MACD快线长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="6">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">MACD慢线长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="13">
+
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md12">
+										<label class="layui-form-label">MACD偏离值</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+								</div>
+								<blockquote class="layui-elem-quote">WR配合均线设置1</blockquote>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md12">
+										<label class="layui-form-label">WR/均线分时</label>
+										<div class="layui-col-md9">
+											<select name="interest" lay-filter="">
+												<option value="">请选择时长</option>
+												<option value="0">5min</option>
+												<option value="1">10min</option>
+												<option value="2" selected="">15min</option>
+												<option value="3">20min</option>
+												<option value="4">25min</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="14">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">均线长度1</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="3">
+
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR偏离值</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="5">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">均线长度2</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="6">
+										</div>
+									</div>
+								</div>
+								<blockquote class="layui-elem-quote">WR配合均线设置2</blockquote>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md12">
+										<label class="layui-form-label">WR/均线分时</label>
+										<div class="layui-col-md9">
+											<select name="interest" lay-filter="">
+												<option value="">请选择时长</option>
+												<option value="0">5min</option>
+												<option value="1">10min</option>
+												<option value="2" selected="">15min</option>
+												<option value="3">20min</option>
+												<option value="4">25min</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR长度</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="14">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">均线长度1</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="3">
+
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item layui-row">
+									<div class="layui-col-md6">
+										<label class="layui-form-label">WR偏离值</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="5">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">均线长度2</label>
+										<div class="layui-col-md9">
+											<input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" value="6">
+										</div>
+									</div>
+								</div>
+								<div class=" layui-col-md2 layui-col-md-offset5">
+									<button type="button" class="layui-btn add">保存</button>
+								</div>
+							</form>
+						</div>
+						<div class="layui-tab-item">
+							2
+						</div>
+						<div class="layui-tab-item">
+							3
+						</div>
+						<div class="layui-tab-item">
+							4
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'form', 'laydate', 'table'], function() {
+				var element = layui.element;
+				var table = layui.table;
+				var layer = layui.layer;
+				var laydate = layui.laydate;
+				var $ = layui.$;
+				$(".test-item").each(function() {
+					laydate.render({
+						elem: this,
+						trigger: "click",
+						//		theme: '#1F294E'
+					})
+				})
+				element.on('tab(docDemoTabBrief)', function(data) {
+					console.log(this); //当前Tab标题所在的原始DOM元素
+					console.log(data.index); //得到当前Tab的所在下标
+					console.log(data.elem); //得到当前的Tab大容器
+				});
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,713 @@
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<p/>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>收益查询</title>
+		<link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+		<!-- <link rel="stylesheet" href="./css/element.2.11.0.css"> -->
+		<link rel="stylesheet" type="text/css" href="./css/earningQueryA.css"/>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div class="topbar">
+				<div class="wrapper flex flex-flow-row">
+					<div class="slogan"><img src="./img/logo.png">欢迎使用码神量化交易系统</div>
+					
+					<div class="switch dropmenu" style="z-index: 1">
+						<span class="color-blue">合约交易</span>
+						<span class="fa fa-angle-down"></span>
+						<!-- <div class="dropmenu-box">
+							<ul>
+								<li class="active">...</li>
+							</ul>
+						</div> -->
+					</div>
+
+					<ul class="status flex-full">
+						<li><a @click="fetchStrageList" href="javascript:;" style="color: #5C89E1; text-decoration: none">设置交易参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li>
+						<li>总下单数：<span class="color-blue">{{ total.totalOrder }}</span></li>
+						<li>平均交易盈利：<span :class="total.avgProfit < 0 ? 'color-red' : 'color-green'">{{ total.avgProfit | cutNum }}</span></li>
+						<li>总手续费：<span class="color-red">{{ total.totalFee | cutNum }}</span></li>
+						<li>全部盈利：<span :class="total.totalProfit < 0 ? 'color-red' : 'color-green'">{{ total.totalProfit | cutNum }}</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="head">
+				<ul class="wrapper table table-head flex flex-flow-row">
+					<li class="tab-1">序号</li>
+					<li class="tab-2">账号<span @click="setCondition('userKey')" :class="condition.order === 'userKey' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-3">策略名称<span @click="setCondition('strategyName')" :class="condition.order === 'strategyName' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-4">执行时间<span @click="setCondition('strategyTime')" :class="condition.order === 'strategyTime' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-5">执行时长(天)<span @click="setCondition('duration')" :class="condition.order === 'duration' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-14">开多次数<span @click="setCondition('openManyCount')" :class="condition.order === 'openManyCount' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-15">开空次数<span @click="setCondition('openSpaceCount')" :class="condition.order === 'openSpaceCount' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-16">止损次数<span @click="setCondition('stopLossCount')" :class="condition.order === 'stopLossCount' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-6">{{ cycleToText[condition.cycle] }}下单数<span @click="setCondition('dayOrder')" :class="condition.order === 'dayOrder' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-7">盈利次数<span @click="setCondition('profitCount')" :class="condition.order === 'profitCount' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-8">亏损次数<span @click="setCondition('lossCount')" :class="condition.order === 'lossCount' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-9">{{ cycleToText[condition.cycle] }}收益<span @click="setCondition('averageDailyIncome')" :class="condition.order === 'averageDailyIncome' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-10">手续费<span @click="setCondition('fee')" :class="condition.order === 'fee' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-11">总盈利<span @click="setCondition('totalProfit')" :class="condition.order === 'totalProfit' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span>
+						<div class="dropmenu dropmenu-open">
+							<span class="fa fa-plus-square color-green"></span>
+							<div class="dropmenu-box">
+								<ul>
+									<li @click="setCycle('day')" :class="{active: condition.cycle === 'day'}">日</li>
+									<li @click="setCycle('week')" :class="{active: condition.cycle === 'week'}">周</li>
+									<li @click="setCycle('month')" :class="{active: condition.cycle === 'month'}">月</li>
+									<li @click="setCycle('quarter')" :class="{active: condition.cycle === 'quarter'}">季</li>
+									<li @click="setCycle('year')" :class="{active: condition.cycle === 'year'}">年</li>
+									<li @click="setCycle('total')" :class="{active: condition.cycle === 'total'}">累计</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="tab-13">账户权益<span @click="setCondition('accountCost')" :class="condition.order === 'accountCost' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span>
+					<li class="tab-12">最大盈利<span @click="setCondition('maxProfit')" :class="condition.order === 'maxProfit' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+					<li class="tab-13">最大亏损<span @click="setCondition('maxLoss')" :class="condition.order === 'maxLoss' && condition.by === 'ASC' ? 'fa-caret-up' : 'fa-caret-down'" class="fa"></span></li>
+				</ul>
+			</div>
+			
+			<transition-group class="wrapper table table-content" name="list-complete" tag="ul">
+				<li class="flex flex-flow-row" v-for="(item, idx) in tableData" :key="idx">
+					<div class="tab-1">{{ idx+1 }}</div>
+					<div class="tab-2 color-blue ellipsis" :title="item.userKey">
+						<a target="_blank" class="color-blue" style="text-decoration: none" :href="'./recordStatistic?strategyKey=' + item.strategyKey">{{ item.userKey }}</a>
+					</div>
+					<div class="tab-3 ellipsis" :title="item.strategyName">
+						<a target="_blank" class="color-blue" style="text-decoration: none" :href="'./recordStatistic?strategyKey=' + item.strategyKey">{{ item.strategyName }}</a>
+					</div>
+ 					<div class="tab-4">{{ item.strategyTime | fmtDate }}</div>
+					<div class="tab-5">{{ item.duration }}</div>
+					
+					<div class="tab-14">{{ item.openManyCount }}</div>
+					<div class="tab-15">{{ item.openSpaceCount }}</div>
+					<div class="tab-16">{{ item.stopLossCount }}</div>
+
+					<div class="tab-6">{{ item.dayOrder }}</div>
+					<div class="tab-7">{{ item.profitCount }}</div>
+					<div class="tab-8">{{ item.lossCount }}</div>
+					<div class="tab-9">{{ item.averageDailyIncome | cutNum }}</div>
+					<div class="tab-10 color-red">{{ item.fee | cutNum }}</div>
+					<div class="tab-11" :class="item.totalProfit < 0 ? 'color-red' : 'color-green'">{{ item.totalProfit | cutNum }}</div>
+					<div class="tab-13" :class="item.accountCost < item.firstBond ? 'color-red' : 'color-green'">{{ item.accountCost | cutNum }}</div>
+					<div class="tab-12 color-green">{{ item.maxProfit | cutNum }}</div>
+					<div class="tab-12 color-red">{{ item.maxLoss | cutNum }}</div>
+				</li>
+				<li v-if="tableData.length === 0" style="text-align: center">--暂时没有数据--</li>
+			</transition-group>
+
+			<div :class="[status.state, 'appStatus']">{{ status.msg }}</div>
+
+			<!-- 设置交易参数弹窗 -->
+			<div class="layerwrapper" v-show="form.show">
+				<div class="layer">
+					<span class="fa fa-times layer-close" @click="form.show = false"></span>
+					<div class="layer-title">{{ strageNameMap[form.type] }}参数设置</div>
+					<div class="form">
+						<div>
+							<label>请选择平台</label>
+							<div class="form-item">
+								<select style="width: 240px;" v-model="form.platform">
+									<option value="火币网">火币网</option>
+								</select>
+							</div>
+							<label>请选择账号</label>
+							<div class="form-item">
+								<select style="width: 180px;" v-model="form.userKey">
+																		<option value="123123123">13888888888</option>
+																	</select>
+							</div>
+						</div>
+						<div class="form-section-title">策略D设置</div>
+						<div>
+							<label>自定义策略名称</label>
+							<div class="form-item">
+								<input type="text" v-model.trim="form.name" />
+							</div>
+							<label>初始账户权益</label>
+							<div class="form-item">
+								<input type="text" style="width: 260px" v-model="form.accountCost" /> BTC
+							</div>
+						</div>
+						<div>
+							<label>仓位</label>
+							<div class="form-item">
+								<input type="text" style="width: 260px" v-model="form.warehouse" /> %
+							</div>
+							<label>止损率</label>
+							<div class="form-item">
+								<input type="text" style="width: 260px" v-model="form.stopLossRate" /> %
+							</div>
+						</div>
+						<div>
+							<label>开仓档位</label>
+							<div class="form-item">
+								<select v-model="form.OpeningStalls" style="width: 260px">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+							<label>开仓每档波动幅度</label>
+							<div class="form-item">
+								<input type="text" v-model="form.OpeningStallsWave" style="width: 260px" />
+							</div>
+						</div>
+						<div>
+							<label>放大交易倍数</label>
+							<div class="form-item">
+								<select v-model="form.multiple" style="width: 260px">
+									<option value="1">1X</option>
+									<option value="5">5X</option>
+									<option value="10">10X</option>
+									<option value="20">20X</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-section-title">WR配合MACD设置</div>
+						<div>
+							<label>WR/MACD分时</label>
+							<div class="form-item">
+								<select v-model="form.time">
+									<option v-for="(value, key) in timeMap" :key="value" :value="key">{{ value }}</option>
+								</select>
+							</div>
+							<label>MACD快线长度</label>
+							<div class="form-item">
+								<input type="text" v-model.trim="form.kuaiXian" />
+							</div>
+						</div>
+						<div>
+							<label v-show="form.type === '1'">WR长度</label>
+							<div v-show="form.type === '1'" class="form-item">
+								<input type="text" v-model="form.wrLong" />
+							</div>
+							<label>MACD慢线长度</label>
+							<div class="form-item">
+								<input type="text" v-model.trim="form.manXian" />
+							</div>
+						</div>
+					</div>
+					<div class="layer-footer">
+						<button class="btn-info" @click="cancelProfile">取消</button>
+						<button class="btn-success" @click="saveProfile">确认执行</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 查看交易参数弹窗 -->
+			<div class="layerwrapper" v-show="form.check">
+				<div class="layer">
+					<span class="fa fa-times layer-close" @click="form.check = false"></span>
+					<div class="layer-title">查看{{ strageNameMap[form.type] }}参数设置</div>
+					<div class="form">
+						<div>
+							<label>请选择平台</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.platform }}</span>
+							</div>
+							<label>请选择账号</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.userKey }}</span>
+							</div>
+						</div>
+						<div class="form-section-title">策略D设置</div>
+						<div>
+							<label>自定义策略名称</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.name }}</span>
+							</div>
+							<label>初始账户权益</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.accountCost }} BTC</span>
+							</div>
+						</div>
+						<div>
+							<label>仓位</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.warehouse }} %</span>
+							</div>
+							<label>止损率</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.stopLossRate }} %</span>
+							</div>
+						</div>
+						<div>
+							<label>开仓档位</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.OpeningStalls }}</span>
+							</div>
+							<label>开仓每档波动幅度</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.OpeningStallsWave }}</span>
+							</div>
+						</div>
+						<div>
+							<label>放大交易倍数</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.multiple }} X</span>
+							</div>
+						</div>
+						<div class="form-section-title">WR配合MACD设置</div>
+						<div>
+							<label>WR/MACD分时</label>
+							<div class="form-item">
+								<span class="color-white">{{ timeMap[form.time] }}</span>
+							</div>
+							<label>MACD快线长度</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.kuaiXian }}</span>
+							</div>
+						</div>
+						<div>
+							<label v-show="form.type === '1'">WR长度</label>
+							<div v-show="form.type === '1'" class="form-item">
+								<span class="color-white">{{ form.wrLong }}</span>
+							</div>
+							<label>MACD慢线长度</label>
+							<div class="form-item">
+								<span class="color-white">{{ form.manXian }}</span>
+							</div>
+						</div>
+					</div>
+					<div class="layer-footer">
+						<button class="btn-success" @click="form.check = false; strageList.show = true">返回</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 显示交易策略 -->
+			<div class="layerwrapper" v-show="strageList.show">
+				<div class="layer">
+					<span class="fa fa-times layer-close" @click="strageList.show = false"></span>
+					<div class="layer-title">交易参数设置</div>
+					<div class="strage-list-title clearfix">
+						策略列表
+						<div class="dropmenu dropmenu-open createStrage">
+							<span class="color-green">新增</span>
+							<span class="fa fa-plus-square color-green"></span>
+							<div class="dropmenu-box">
+								<ul>
+									<li @click="createStrage('1')">MACD与WR</li>
+									<li @click="createStrage('2')">MACD</li>
+									<li @click="createStrage('3')">MACD与0轴</li>
+									<!-- <li @click="createStrage('4')">涡旋</li> -->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="strage-list-fieldname flex flex-flow-row">
+						<div class="l-1">策略名称</div>
+						<div class="l-2">策略执行进度</div>
+						<div class="l-3">操作</div>
+					</div>
+					<div class="strage-list">
+						<div class="flex flex-flow-row" v-for="(item, idx) in strageList.tableData" :key="idx">
+							<div class="l-1">
+								<span class="color-blue">{{ item.userKey }}</span> {{ item.platform }} {{ item.name }}
+							</div>
+							<div class="l-2">
+								<div class="process flex flex-flow-row">
+									<span class="processbox"><span class="percent" :style="'width: ' + item.runPercent + '%'"></span></span>
+									<span class="process-text">{{ item.runPercent }}%</span>
+								</div>
+							</div>
+							<div class="l-3" style="text-align: left">
+								<a href="javascript:;" @click="editStrage(idx)">修改</a>
+								<a href="javascript:;" @click="editStrage(idx, true)">查看</a>
+<!-- 								<a href="javascript:;" @click="deleteStrage(item.timeKey)">删除</a> -->
+<!-- 								<a href="javascript:;" v-if="item.state == 4" @click="changeStrageState(item.timeKey, '1')">开始</a> -->
+<!-- 								<a href="javascript:;" v-if="item.state == 2" @click="changeStrageState(item.timeKey, '4')">停止</a> -->
+							</div>
+						</div>
+						<div v-if="strageList.tableData.length === 0" style="text-align: center">--暂时没有数据--</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- message -->
+			<div :class="[{ open: message.open }, message.type, 'message']">
+				<span v-show="message.type === 'success'" class="fa fa-check"></span>
+				<span v-show="message.type === 'error'" class="fa fa-times"></span>
+				{{ message.msg }}
+			</div>
+		</div>
+
+		<script src="./js/lib/vue.2.6.10.min.js"></script>
+		<!-- <script src="./js/lib/element.2.11.0.js"></script> -->
+		<script src="./js/lib/moment.2.24.0.js"></script>
+		<script src="./js/lib/axios.0.19.0.min.js"></script>
+		<script type="text/javascript">
+			var app, ws;
+			var reg_int = /^\d+$/;
+			var reg_float = /^\d+(\.\d+)?$/;
+
+			// moment
+			moment.locale('zh-cn')
+
+			// axios
+			axios.interceptors.request.use(req => {
+			  var t = []
+			  var p
+			  for (p in req.data) {
+			    t.push(p + '=' + window.encodeURIComponent(req.data[p]))
+			  }
+			
+			  req.data = t.join('&')
+			  return req
+			}, () => {
+			  return Promise.reject(new Error('Request Error'))
+			})
+			
+			axios.interceptors.response.use(res => {
+				if (res.data.code === 1000) {
+					return res.data
+				}
+				return Promise.reject(res.data.msg)
+			}, (err) => {
+				return Promise.reject(err)
+			})
+
+			// 全局过滤器
+			Vue.filter('fmtDate', function (value) {
+				return moment(value).format('YY-MM-DD HH:mm:ss')
+			})
+			// 保存小数点后面4位小数
+			Vue.filter('cutNum', function (value, n) {
+				!n && (n = 4)
+				return Number(value).toFixed(n)
+			})
+			app = new Vue({
+				el: '#app',
+				data: {
+					tableData: [],
+					strageNameMap: {
+						'1': 'MACD与WR',
+						'2': 'MACD',
+						'3': 'MACD与0轴',
+						'4': '涡旋'
+					},
+					timeMap: {
+						'1': '1min',
+						'2': '5min',
+						'3': '15min',
+						'4': '30min',
+						'5': '1h',
+						'6': '1d'
+					},
+					status: {
+						state: '',
+						msg: ''
+					},
+					total: {
+						avgProfit: 0,
+						totalFee: 0,
+						totalOrder: 0,
+						totalProfit: 0
+					},
+					message: {
+						open: false,
+						msg: '',
+						type: '',
+						timer: null
+					},
+					cycleToText: {
+						'day': '日均',
+						'week': '周均',
+						'month': '月均',
+						'quarter': '季均',
+						'year': '年均',
+						'total': '累计'
+					},
+					condition: {
+						order: 'totalProfit',
+						by: 'DESC',
+						cycle: 'total'
+					},
+					strageList: {
+						show: false,
+						tableData: []
+					},
+					form: {
+						show: false,
+						check: false,
+						type: '1',
+						accountCost: '',
+						platform: '1',
+						userKey: '',
+						name: '',
+						warehouse: '',
+						stopLossRate: '',
+						OpeningStalls: '',
+						OpeningStallsWave: '',
+						multiple: '',
+						time: 3,
+						kuaiXian: '',
+						manXian: '',
+						wrLong: ''
+					}
+				},
+				methods: {
+					setCondition: function (field) {
+						if (this.condition.order === field) {
+							this.condition.by = this.condition.by === 'DESC' ? 'ASC' : 'DESC'
+						} else {
+							this.condition.order = field
+							this.condition.by = 'ASC'
+						}
+						this.fetch()
+					},
+					setCycle: function (c) {
+						this.condition.cycle = c
+						this.fetch()
+					},
+					notice: function (type, text, duration) {
+						this.message.type = type
+						this.message.msg = text
+						this.message.open = true
+						if (!duration) {
+							duration = 2000
+						}
+						if (this.message.timer) {
+							clearTimeout(this.message.timer)
+						}
+						this.message.timer = setTimeout(() => { this.message.open = false }, duration)
+					},
+					changeStrageState (timeKey, state) {
+						// 停止 state = 4
+						// 开始 state = 1
+						axios.post('/strategy/switch', {timeKey: timeKey, state: state}).then(function () {
+							this.notice('success', '操作成功')
+							this.fetchStrageList()
+						})
+					},
+					deleteStrage (timeKey) {
+						axios.post('/strategy/delete', {timeKey: timeKey}).then(function () {
+							this.notice('success', '操作成功')
+							this.fetchStrageList()
+						})
+					},
+					saveProfile: function () {
+						if (!this.form.userKey) {
+							this.notice('error', '请选择账号')
+							return
+						}
+						if (!this.form.name) {
+							this.notice('error', '请输入自定义策略名称')
+							return
+						}
+						if (this.form.name.length > 20) {
+							this.notice('error', '策略名称最多20个字符')
+							return
+						}
+						if (!reg_int.test(this.form.accountCost)) {
+							this.notice('error', '初始账户权益必填且必须是整数')
+							return
+						}
+						if (this.form.accountCost <= 0) {
+							this.notice('error', '初始账户权益必须大于0')
+							return
+						}
+						if (!reg_float.test(this.form.warehouse)) {
+							this.notice('error', '仓位必填且必须是数字')
+							return
+						}
+						if (this.form.warehouse <= 0) {
+							this.notice('error', '仓位必须大于0')
+							return
+						}
+						if (this.form.warehouse > 100) {
+							this.notice('error', '仓位不能大于100')
+							return
+						}
+						if (!reg_float.test(this.form.stopLossRate)) {
+							this.notice('error', '止损率必填且必须是数字')
+							return
+						}
+						if (this.form.stopLossRate <= 0) {
+							this.notice('error', '止损率必须大于0')
+							return
+						}
+						if (this.form.stopLossRate > 100) {
+							this.notice('error', '止损率不能大于100')
+							return
+						}
+						if (!reg_int.test(this.form.OpeningStalls)) {
+							this.notice('error', '开仓档位必填且必须是整数')
+							return
+						}
+						if (this.form.OpeningStalls <= 0) {
+							this.notice('error', '开仓档位必须大于0')
+							return
+						}
+						if (!reg_int.test(this.form.OpeningStallsWave)) {
+							this.notice('error', '开仓每档波动幅度必填且必须是整数')
+							return
+						}
+						if (this.form.OpeningStallsWave <= 0) {
+							this.notice('error', '开仓每档波动幅度必须大于0')
+							return
+						}
+						if (!reg_int.test(this.form.multiple)) {
+							this.notice('error', '放大交易倍数必填且必须是整数')
+							return
+						}
+						if (this.form.multiple <= 0) {
+							this.notice('error', '放大交易倍数必须大于0')
+							return
+						}
+						if (this.form.type === '1') {
+							if (!reg_int.test(this.form.wrLong)) {
+								this.notice('error', 'WR长度必填且必须是整数')
+								return
+							}
+							if (this.form.wrLong <= 0) {
+								this.notice('error', 'WR长度必须大于0')
+								return
+							}
+						}
+						if (!reg_int.test(this.form.kuaiXian)) {
+							this.notice('error', 'MACD快线长度必填且必须是整数')
+							return
+						}
+						if (this.form.kuaiXian <= 0) {
+							this.notice('error', 'MACD快线长度必须大于0')
+							return
+						}
+						if (!reg_int.test(this.form.manXian)) {
+							this.notice('error', 'MACD慢线长度必填且必须是整数')
+							return
+						}
+						if (this.form.manXian <= 0) {
+							this.notice('error', 'MACD慢线长度必须大于0')
+							return
+						}
+
+						var params = Object.assign({}, this.form)
+
+						// 策略非 MACD与WR 时，去掉 WR长度
+						if (this.form.type !== '1') {
+							delete params.wrLong
+						}
+						axios.post('/strategy/add', params).then(() => {
+							this.notice('success', '操作成功')
+							this.form.show = false
+						}).catch(err => {
+							this.notice('error', err.message || err)
+						})
+					},
+					cancelProfile: function () {
+						this.strageList.show = true
+						this.form.show = false
+					},
+					fetchStrageList: function () {
+						axios.get('/strategy/list').then(res => {
+							this.strageList.tableData.splice()
+							this.strageList.tableData = res.msg
+							this.strageList.show = true
+						}).catch(err => {
+							this.notice('error', err.message || err)
+						})
+					},
+					createStrage (n) {
+						this.form.accountCost = '10'
+						this.form.platform = '火币网'
+						this.form.userKey = ''
+						this.form.name = ''
+						this.form.warehouse = '50'
+						this.form.stopLossRate = '0.5'
+						this.form.OpeningStalls = '5'
+						this.form.OpeningStallsWave = '1'
+						this.form.multiple = '20'
+						this.form.time = 3
+						this.form.kuaiXian = '6'
+						this.form.manXian = '13'
+						this.form.wrLong = '8'
+						this.form.type = n
+						this.strageList.show = false
+						this.form.show = true
+					},
+					editStrage: function (idx, isCheck) {
+						var target = this.strageList.tableData[idx]
+						this.form.accountCost = target.accountCost
+						this.form.platform = target.platform
+						this.form.userKey = target.userKey
+						this.form.name = target.name
+						this.form.warehouse = target.warehouse*100
+						this.form.stopLossRate = target.stopLossRate
+						this.form.OpeningStalls = target.OpeningStalls
+						this.form.OpeningStallsWave = target.OpeningStallsWave
+						this.form.multiple = target.multiple
+						this.form.time = target.time
+						this.form.kuaiXian = target.kuaiXian
+						this.form.manXian = target.manXian
+						this.form.wrLong = target.wrLong
+						this.form.type = target.type || '1'
+						this.strageList.show = false
+
+						if (isCheck === true) {
+							console.log(1111)
+							this.form.check = true
+						} else {
+							this.form.show = true
+						}
+					},
+					fetch: function () {
+						ws.send(JSON.stringify({ orderBy: this.condition.order + ' ' + this.condition.by, cycle: this.condition.cycle }))
+					}
+				}
+			})
+
+			// socket
+			if (!'WebSocket' in window) {
+				app.status.state = 'error'
+				app.status.msg = '您的浏览器太低，请使用最新的Chrome浏览器'
+			} else {
+				ws = new WebSocket("ws://btc.misuland.com/websocket/3522729015083272116")
+// 				ws = new WebSocket("ws://btc.misuland.com/websocket/3510207845385640470")
+			
+				ws.onopen = function() {
+					console.log('websocket连接成功')
+					app.fetch()
+				}
+
+				ws.onmessage = function (evt) { 
+					console.log("已接收数据...")
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var d = JSON.parse(e.target.result);
+						
+						app.total.avgProfit = d.total.avgProfit
+						app.total.totalFee = d.total.totalFee
+						app.total.totalOrder = d.total.totalOrder
+						app.total.totalProfit = d.total.totalProfit
+						
+						app.tableData.splice(0)
+						app.tableData = d.dataList
+					};
+					reader.readAsText(evt.data)
+				}
+
+				ws.onclose = function() {
+					app.status.state = 'error'
+					app.status.msg = "与服务器的连接已断开，请刷新浏览器..." 
+				}
+			}
+		</script>
+	</body>
+</html>
+
+
+<p/>
+</body>
+</html>

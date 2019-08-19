@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改密码</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/mine.css"/>
+	</head>
+	<body>
+		<div class="layui-main layui-row alter">
+				<span class="layui-breadcrumb layui-col-md12">
+				  <a href="mine.html">我的</a>
+				  <a><cite>修改密码</cite></a>
+				</span>
+			<form class="layui-form layui-row" action="">
+				  <div class="layui-form-item layui-col-md5">
+				   
+				    <div class="layui-input-block">
+				      <input type="password" name="password" required  lay-verify="required" placeholder="原密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-form-item layui-col-md5">
+				    <div class="layui-input-block">
+				      <input type="password" name="newpassword" required lay-verify="required" placeholder="新密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-form-item layui-col-md5">
+				    <div class="layui-input-block">
+				      <input type="password" name="surepassword" required lay-verify="required" placeholder="确认新密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+			</form>
+			<button type="button" class="layui-btn layui-col-md5">确认</button>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form
+			})
+		</script>
+	</body>
+</html>

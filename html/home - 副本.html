@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+	</head>
+
+	<body>
+		<div class="home">
+			<!--内容侧边区域-->
+			<div class="layui-side layui-bg-black">
+				<div class="layui-side-scroll">
+					<div class="layui-row">
+						<span class="layui-col-md3 sidetext">当前平台：</span>
+						<span class="layui-col-md9 pingtai">火币网</span>
+					</div>
+					<div class="layui-row">
+						<span class="layui-col-md3 sidetext">当前平台：</span>
+						<form action="" class="layui-form layui-col-md9">
+							<div class="layui-form-item">
+								<input type="checkbox" name="currency[BTC]" lay-skin="primary" title="BTC" checked/>
+								<input type="checkbox" name="currency[ETH]" lay-skin="primary" title="ETH" />
+								<input type="checkbox" name="currency[USDT]" lay-skin="primary" title="USDT" />
+								<input type="checkbox" name="currency[EOS]" lay-skin="primary" title="EOS" />
+								<input type="checkbox" name="currency[XRP]" lay-skin="primary" title="XRP" />
+								<input type="checkbox" name="currency[LTC]" lay-skin="primary" title="LTC" />
+							</div>
+						</form>
+					</div>
+					<div class="layui-row log">
+						<ul>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span>登录成功</span>
+							</li>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span>正在连接火币网...</span>
+							</li>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span></span>
+							</li>
+						</ul>
+					</div>
+					<!--<ul class="layui-nav">
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">侧边栏导航</a>
+						</li>
+					</ul>-->
+				</div>
+				<div class="divCar">
+					<i class="layui-icon layui-icon-left" style="font-size: 25px;"></i>
+				</div>
+			</div>
+
+			<div class="home-right">
+				<div class="homerightcontent">
+					<div class="layui-row home-top">
+						<div class="layui-form">
+							<div class="layui-form-item layui-row">
+								<div class="layui-inline layui-col-md4">
+									<label class="layui-form-label hometext ">开始时间</label>
+									<input type="text" class="layui-input-inline test-item" placeholder="yyyy-MM-dd">
+									<div class="dateicon"><i class="layui-icon layui-icon-date"></i></div>
+								</div>
+								<div class="layui-inline layui-col-md4">
+									<span class="layui-form-label hometext">终止时间</span>
+									<input type="text" class="layui-input-inline test-item" placeholder="yyyy-MM-dd">
+									<div class="dateicon"><i class="layui-icon layui-icon-date"></i></div>
+								</div>
+								<div class="layui-inline layui-col-md3">
+									<button class="layui-btn layui-btn-lg action">开始执行</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="home-center">
+						<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+							<ul class="layui-tab-title layui-row ">
+								<li class="layui-this layui-col-md3">
+									法币交易
+								</li>
+								<li class="layui-col-md3">币币交易</li>
+								<li class="layui-col-md3">杠杆交易</li>
+								<li class="layui-col-md3">合约交易</li>
+							</ul>
+							<div class="layui-tab-content">
+								<div class="layui-tab-item layui-show">
+									<table class="layui-hide tableModle" id="tableF"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableB"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableG"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableH"></table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'laydate', 'table'], function() {
+				var element = layui.element;
+				var table = layui.table;
+				var layer = layui.layer;
+				var laydate = layui.laydate;
+				var $ = layui.$;
+
+				function normalSide() {
+					//					$(".layui-side").width("200px");
+					$(".layui-side").removeClass("layui-hide");
+					//					$(".layui-body").css({
+					//						"left": "26.6%"
+					//					});
+
+					if($(".layui-side").width() != "25") {
+
+						$(".divCar i").removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-body").css({
+							"left": "26.6%"
+						});
+					}
+				}
+
+				function hideSide() {
+					$(".layui-side").width("26.6%");
+					$(".layui-side").addClass("layui-hide");
+					$(".layui-body").css({
+						"left": "0px"
+					});
+				}
+
+				$(".divCar").on("click", "i", function() {
+					if($(this).hasClass("layui-icon-left")) {
+						$(this).removeClass("layui-icon-left").addClass("layui-icon-right");
+						$(".layui-side").width("25px");
+						$(".home-right").css({
+							"left": "25px",
+							"width": "100%"
+						}).show("fast");
+					} else {
+						$(this).removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-side").width("26.6%");
+
+						$(".home-right").css({
+							"left": "26.6%",
+							"width": "73.5%"
+						}).show("fast");
+					}
+				});
+
+				$(".test-item").each(function() {
+					laydate.render({
+						elem: this,
+						trigger: "click",
+						//		theme: '#1F294E'
+					})
+				})
+				element.on('tab(docDemoTabBrief)', function(data) {
+					console.log(this); //当前Tab标题所在的原始DOM元素
+					console.log(data.index); //得到当前Tab的所在下标
+					console.log(data.elem); //得到当前的Tab大容器
+				});
+
+				$(".tableModle").each(function() {
+					table.render({
+						elem: this,
+						url: 'FeHelper-20190704151843.json',
+						cellMinWidth: 60 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+							,
+						cols: [
+							[{
+									field: 'id',
+									title: '平台名称',
+									sort: true,
+									minWidth: 100
+								}, {
+									field: 'username',
+									title: '货币名称',
+									sort: true,
+									minWidth: 100
+								}, {
+									field: 'sex',
+									title: '运行状态'
+								}, {
+									field: 'city',
+									title: '卖出价'
+								}, {
+									field: 'sign',
+									title: '卖挂单数',
+									minWidth: 80
+								} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+								, {
+									field: 'experience',
+									title: '买入价'
+								}, {
+									field: 'score',
+									title: '买挂单数'
+								}, {
+									field: 'classify',
+									title: '最小交易量'
+								}, {
+									field: 'wealth',
+									title: '持仓数'
+								}, {
+									field: 'score',
+									title: '持仓均价'
+								}, {
+									field: 'score',
+									title: '持仓费用'
+								}, {
+									field: 'score',
+									title: '收益比'
+								}
+							]
+						],
+						skin: "nob",
+						done: function(res, curr, count) {
+
+							//如果是异步请求数据方式，res即为你接口返回的信息。
+							//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+							console.log(res);
+
+							//得到当前页码
+							console.log(curr);
+
+							//得到数据总量
+							console.log(count);
+						}
+					});
+				})
+
+				parent.layui.$("#mainNav").on("click", 'li:eq(1)', function() {
+					layer.open({
+						skin: 'layui-layer-demo',
+						type: 1,
+						title: ['API设置'],
+						content: $("#demo")
+					});
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

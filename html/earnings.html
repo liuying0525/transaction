@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>收益查询</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/record.css"/>
+	</head>
+	<body>
+		<div class="earnings layui-col-md10 layui-col-md-offset1">
+			<div class="layui-form">
+				<div class="layui-form-item layui-row">
+				
+					<div class="layui-col-md3 inputdate">
+				        <input type="text" class="layui-input test-item" id="forMonth" placeholder="按月查询">
+				        <input type="text" class="layui-input test-item" id="forWeek" placeholder="按周查询">				     
+					</div>
+					<div class="layui-col-md4 inputdate">
+				        <input type="text" class="layui-input test-item" id="fromDate" placeholder="按日查询">
+				      					
+					<span>至</span>
+				        <input type="text" class="layui-input test-item" id="toDate" placeholder="按日查询">
+				     
+					</div>
+						<div class="layui-col-md3">
+					      <select name="platform" lay-verify="required">
+					        <option value="">所有平台</option>
+					        <option value="0">火币网01</option>
+					        <option value="1">火币网02</option>
+					        <option value="2">火币网03</option>
+					        <option value="3">火币网04</option>
+					        <option value="4">火币网05</option>
+					      </select>
+					      <select name="currency" lay-verify="required">
+					        <option value="">所有货币</option>
+					        <option value="0">货币00</option>
+					        <option value="1">货币01</option>
+					        <option value="2">货币02</option>
+					        <option value="3">货币03</option>
+					        <option value="4">货币04</option>
+					      </select>
+					</div>
+					<button type="button" class="layui-btn layui-btn-primary layui-col-md2 inquirebtn">查询</button>
+				</div>
+			</div>
+			<div class="layui-row">
+				<table class="layui-hide tableModle" id="tableRecord"></table>
+			</div>
+			<div class="layui-row total">
+				<span>2019-07</span>
+				<span>总计盈余：<text>5680.5721</text>CYN</span>
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form;
+				var laydate = layui.laydate;
+				var table=layui.table;
+				form.render();
+				laydate.render({
+						elem: "#forMonth",
+						trigger: "click",
+						type: 'month'
+					})
+				laydate.render({
+						elem: "#forWeek",
+						trigger: "click",
+					})
+				laydate.render({
+						elem: "#fromDate",
+						trigger: "click",
+					})
+				laydate.render({
+						elem: "#toDate",
+						trigger: "click",
+					})
+				
+						table.render({
+							elem: "#tableRecord",
+							url: 'FeHelper-20190704151843.json',
+							cellMinWidth: 80,
+							cols: [
+								[{
+										field: 'id',
+										title: '平台名称',
+										sort: true,
+										align: 'center'
+									}, {
+										field: 'username',
+										title: '货币名称',
+										sort: true,
+										align: 'center'
+									}, {
+										field: 'sex',
+										title: '日期',
+										align: 'center'
+									}, {
+										field: 'city',
+										title: '买入数量',
+										align: 'center'
+									}, {
+										field: 'sign',
+										title: '卖出数量'
+									} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+									, {
+										field: 'score',
+										title: '交易货币',
+										align: 'center'
+									}, {
+										field: 'classify',
+										title: '计价货币',
+										align: 'center'
+									}, {
+										field: 'wealth',
+										title: '收益',
+										minWidth: 100,
+										align: 'center'
+									}, 
+								]
+							],
+							skin: "nob",
+							done: function(res, curr, count) {
+
+								//如果是异步请求数据方式，res即为你接口返回的信息。
+								//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+								console.log(res);
+
+								//得到当前页码
+								console.log(curr);
+
+								//得到数据总量
+								console.log(count);
+							}
+						});
+				
+				
+			});
+		</script>
+	</body>
+</html>

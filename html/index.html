@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin index">
+			<!--内容头部区域-->
+			<div class="layui-header layui-bg-cyan">
+				<div class="" id="headerMain">
+					<div class="layui-logo">LOGO</div>
+					<ul class="layui-nav layui-layout-left" lay-filter="component-nav" id="mainNav">
+						<li class="layui-nav-item">
+							<a href="home.html" target="mainBox">首页</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="apiSetting.html" target="mainBox">API设置</a>
+						</li>
+						<!--<li class="layui-nav-item">
+							<a href="policy.html" target="mainBox">策略配置</a>
+						</li>-->
+						<li class="layui-nav-item">
+							<a href="parameterSecond.html" target="mainBox">交易参数设置</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="record.html" target="mainBox">交易记录明细</a>
+						</li>
+						<li class="layui-nav-item">
+							<!--<a href="earnings.html" target="mainBox">收益查询</a>-->
+							<a href="earningQueryA.html" target="mainBox">收益查询</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="mine.html" target="mainBox">我的</a>
+						</li>
+					</ul>
+					<ul class="layui-nav layui-layout-right" id="loginNav">
+						<li class="layui-nav-item">
+							<a href="login.html" target="mainBox">登录</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="register.html" target="mainBox">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--内容侧边区域-->
+			<div class="layui-side layui-bg-black">
+				<div class="layui-side-scroll">
+					<!--<div class="layui-row">
+						<span class="layui-col-md3 sidetext">当前平台：</span>
+						<span class="layui-col-md9 pingtai">火币网</span>
+					</div>
+					<div class="layui-row">
+						<span class="layui-col-md3 sidetext">当前平台：</span>
+						<form action="" class="layui-form layui-col-md9">
+							<div class="layui-form-item">
+								<input type="checkbox" name="currency[BTC]" lay-skin="primary" title="BTC" checked/>
+								<input type="checkbox" name="currency[ETH]" lay-skin="primary" title="ETH" />
+								<input type="checkbox" name="currency[USDT]" lay-skin="primary" title="USDT" />
+								<input type="checkbox" name="currency[EOS]" lay-skin="primary" title="EOS" />
+								<input type="checkbox" name="currency[XRP]" lay-skin="primary" title="XRP" />
+								<input type="checkbox" name="currency[LTC]" lay-skin="primary" title="LTC" />
+							</div>
+						</form>
+					</div>-->
+					<div class="layui-row log">
+						<ul>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span>登录成功</span>
+							</li>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span>正在连接火币网...</span>
+							</li>
+							<li>
+								<span>2016/09/11</span>
+								<span>12:24:56</span>
+								<span></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="divCar">
+					<i class="layui-icon layui-icon-left" style="font-size: 25px;"></i>
+				</div>
+			</div>
+			<!--内容主体区域-->
+			<div class="layui-body layui-layout-body">
+				<iframe src="" frameborder="0" height="100%" width="100%" id="mainBox"></iframe>
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var siderList = ["login.html", "register.html"];
+
+			layui.use(['element', 'jquery','form'], function() {
+				var form = layui.form;
+				var element = layui.element;
+				var $ = layui.$;
+				
+				
+		
+				
+				$('#headerMain').on("click", "li", function() {
+					var ifsrc=$(this).find("a").attr("href");
+					if(siderList.indexOf(ifsrc)==-1){
+						$("#loginNav li").removeClass("layui-this");
+					
+					}else{
+						$("#mainNav li").removeClass("layui-this");
+						
+					}
+					if(ifsrc !=""){
+						$("#mainBox").attr("src",ifsrc);
+					
+					}
+					return false;
+				});
+
+				//初始化第一个菜单值
+				if($("#mainBox").attr("src") == "") {
+					var a_first = $(".layui-layout-right li:first a");
+					a_first.trigger("click");
+					$("#mainBox").attr("src", $(a_first).attr("href"))
+				}
+				
+//						// 隐藏侧边栏
+//				if($("#mainBox").attr("src").length > 1) {
+//					$(".layui-side").addClass("layui-hide");
+//				}
+
+//侧边栏
+				function normalSide() {
+					//					$(".layui-side").width("200px");
+					$(".layui-side").removeClass("layui-hide");
+					//					$(".layui-body").css({
+					//						"left": "26.6%"
+					//					});
+
+					if($(".layui-side").width() != "25") {
+
+						$(".divCar i").removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-body").css({
+							"left": "25%"
+						});
+					}
+				}
+
+				function hideSide() {
+					$(".layui-side").width("25%");
+					$(".layui-side").addClass("layui-hide");
+					$(".layui-body").css({
+						"left": "0px"
+					});
+				}
+
+				$(".divCar").on("click", "i", function() {
+					if($(this).hasClass("layui-icon-left")) {
+						$(this).removeClass("layui-icon-left").addClass("layui-icon-right");
+						$(".layui-side").width("25px");
+						console.log($(window).width());
+						$(".layui-body").css({
+							"left": "25px",
+//							"width": "100%"
+"width":$(window).width()-50,
+						}).show("fast");
+						$(".layui-table-view .layui-table").css({
+//							"width": "100%"
+"width":$(window).width()-50,
+						}).show("fast");
+					} else {
+						$(this).removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-side").width("25%");
+
+						$(".layui-body").css({
+							"left": "25%",
+							"width": "75%"
+						}).show("fast");
+							$(".layui-table-view .layui-table").css({
+							"width": "auto"
+						}).show("fast");
+					}
+//					tableData();
+				});
+
+
+			});
+		</script>
+	</body>
+
+</html>

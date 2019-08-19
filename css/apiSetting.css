@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@font-face {font-family: "layui-icon";
+  src: url('../layui/font/iconfont.eot?t=1565087523783'); /* IE9 */
+  src: url('../layui/font/iconfont.eot?t=1565087523783#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAANsAAsAAAAAB/AAAAMgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDFAqDMIJnATYCJAMQCwoABCAFhG0HSxvUBsiuMYUxPrWYgSGRQ7FhN/T2vnvED2Jniof/9kvvmz+LqJKoFFny8VUAIFuFoIiUDghfh7Zsq3dwLc0VCFMiUOgPcmn6kGs+XwBSALhNAipAuar++5HQ6wUByNYNBUfdrS8yMrM1QJPTmwbI+PqfCL7/BhwzXYrn2WxO1a2FAxwPaIDdVCW8F3h7IPlh7CaChridQN2MVMKe+tYO4CQD/QJxhWAROGX0ckNpqArliqm5Hs+VVNPT9B3P+M/HXxvDiaRUAEP3nqtTQOUPP7KdmEw4QgkE01lhzKLAakAmTlTaD7GN4qvZqnvt7awFlGUhTeX9P5wk31eWN/qPlxREGShugs1youAH2CpcmkBmk/iRwgOSc+8qargFeK+op6bhwqxxx7lbcaUXur6RRHZO9l/Ed+mXXh2ehWZc3nu9/LLj7u7tpcvSHEh35pffCx0Rj3sm3w235T9imN3BfJ7n88VI+8OFyjf+irrlavbYfCvYnsU2E6+n+nBcTiN2+lG/pM+5LjxGwsePf76dW3t42BhL87w36BZ0NdA98FrmNJX9oe35nfl5WzfJ/3RL9AHt9y7k8V/HmKpBzwHPaofHLe+fq/VR8LxW/4x+kAaY/HvZodgGUCykp9npAoLBkd4P8yz9z3WHPj8Qo1YOS1QlOgv+UFn2m/wjl00RiOWMBhH3C36O4F6jCXUYYgK4+6xTKEYL8KmzapQgqZhGoWqWmKmrUdKwGWVV21G3SsPshgHGVuQaVpqVELqeIWlbRKHrBzFTLSgZ+4eybtiibl/4LtmwNIhLDUMiRwqUBiGRqVFFJu4iStsQNutFlhZxWhdiJhKCWWvX51MNyIjYFCNMfTibcxWqjBpgvbQb0usp1BjtQTJP7+ZcK85Yd67qTukyNQAXuzGIiEMUkGQQRMgoI5U25lwK32+DYGZ6ItZQ0+PsgjAmpHUoS7rMDsQGubFTza0cY9IHy8ZxKkjFUAZQvWRF9DBOQVp1px6IjEvXPSCqKZah1FO7ytOXVxrecBPUgaNypCgiR0nlEjFiLFKnQWoeIKIRu+Vy02SqDQIA') format('woff2'),
+  url('iconfont.woff?t=1565087523783') format('woff'),
+  url('../layui/font/iconfont.ttf?t=1565087523783') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../layui/font/iconfont.svg?t=1565087523783#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+/*.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}*/
+
+.layui-icon-jinggao:before {
+  content: "\e600";
+}
+
+.layui-icon-youxiang:before {
+  content: "\e64d";
+}
+.layui-icon-jinggao-copy{
+	color:#E9FF00;
+	margin-right:4px;
+	font-size: 14px;
+}
+.layui-icon-jinggao-copy:before {
+  content: "\e64e";
+}
+.cardtips{
+    font-size: 12px;
+    padding-top: 10px;
+    display: inline-block;
+    color:#8396BB;
+}
+.apiSetting{
+	padding-top:48px;
+	/*padding:0 40px;
+	box-sizing: border-box;*/
+}
+.apisettingBt ul li span{
+	color:#8396BB;
+}
+.apiSetting .layui-form-label,.text{
+	
+	color:#8396BB;
+	width:115px;
+}
+.apiSetting .layui-input-block{
+	margin-left:150px;
+}
+.apisettingBt ul li{
+	height:44px;
+	line-height: 44px;
+	background-color: #1E2F58;
+	border-radius: 4px;
+	margin-top:12px;
+}
+.apiSetting .layui-input{
+	background-color: #1F294E;
+	border-radius: 4px;
+	border:none;
+	color:#12B66E;
+}
+.apisettingBt ul li a,.apisettingBt ul li span>span{
+	color:#12B66E;
+}
+.apisettingBt ul li a,.apisettingBt ul li>span:nth-of-type(1){
+	text-align: center;
+}
+.layui-select-title .layui-input::-webkit-input-placeholder{
+    color:#8396BB;
+}
+.layui-select-title .layui-input:-moz-placeholder{
+    color:#8396BB;
+}
+.layui-select-title .layui-input::-moz-placeholder{
+    color:#8396BB;
+}
+.layui-select-title .layui-input:-ms-input-placeholder{
+    color:#8396BB;
+}
+.layui-btn.interlinkage,.layui-btn.add{
+	color:#4072EC;
+	border:#4072EC 1px solid;
+	border-radius: 4px;
+	background: none;
+	    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.layui-btn.add{
+	color:#12B66E;
+	border-color:#12B66E;
+}
+.text{
+	padding:10px 0;
+}
+.layui-bg-black{
+	background-color: #000 !important;
+}

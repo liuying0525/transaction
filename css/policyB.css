@@ -1,0 +1,135 @@
+@charset "UTF-8";
+body{
+	background: #1F3664;
+}
+
+
+.policy-skin .layui-layer-title{
+	background-color: #1F3664;
+}
+.policy{
+	
+	padding:10px;
+	padding-top:16px;
+	box-sizing: border-box;
+}
+.policy>div>span{
+	color:#fff;
+	display: inline-block;
+	line-height: 84px;
+}
+.policy .layui-form-label{
+	color:#8396BB;
+}
+.add{
+	width:152px;
+	
+}
+ .layui-input{
+	background-color:#1F294E;
+	border:none;
+	color:#12B66E;
+}
+.layui-input::-webkit-input-placeholder{
+    color:#fff;
+}
+.layui-input:-moz-placeholder{
+    color:#fff;
+}
+.layui-input::-moz-placeholder{
+    color:#fff;
+}
+.layui-input:-ms-input-placeholder{
+    color:#fff;
+}
+ .inquirebtn{
+ 	width:152px;
+	color:#62A4FF;
+	border:#62A4FF 1px solid;
+	border-radius: 4px;
+	background: none;
+	margin-left:20px;
+}
+.inquirebtn:hover{
+	color:#fff;
+}
+ul li{
+	margin:18px 0;
+}
+ul li span{
+	display: inline-block;
+	height:44px;
+	line-height: 44px;
+	color:#fff;
+	border-radius: 4px;
+	background-color: #1E284F;
+	width: 100%;
+	padding-left:10px;
+}
+.layui-breadcrumb a{
+	color:#8396BB !important;
+}
+.layui-breadcrumb a cite{
+	color:#fff;
+}
+.layui-bg-black{
+	background-color: #000 !important;
+	margin:30px 0;
+}
+.policyinput{
+	/*margin-bottom: 40px;*/
+}
+.policyinput .layui-form-label{
+width:100px;
+}
+.policyinput .layui-input{
+	width:60%;
+	display: inline-block;
+}
+.policyinput text{
+	color:#8396BB;
+	margin-left:10px;
+}
+.policyinput .add{
+	margin-top:15px;
+}
+.parameter .policyinput .layui-input{
+	width:100%;
+	display: inline-block;
+}
+.parameter{
+	padding-top:40px;
+}
+
+/*parameterSecond*/
+.policySecond .layui-elem-quote{
+	color:#12B66E;
+	margin-bottom:24px;
+    line-height: 12px;
+    border-left: 4px solid #12B66E;
+    border-radius: 0 2px 2px 0;
+    padding:0;
+    padding-left:16px;
+    font-size: 14px;
+    background:none;
+    margin-top:48px;
+}
+
+.policySecond .layui-input{
+	width:100%;
+}
+.policySecond .layui-form-label{
+	width:100px;
+}
+.policySecond{
+	padding-top:48px;
+}
+.policySecond .policyinput .add{
+	    margin-top: 65px;
+}
+.checkedTime .layui-input,.checkedRdtime .layui-input{
+	/*width:87%;*/
+}
+.checkedTime .layui-form-label,.checkedRdtime .layui-form-label{
+	/*width:110px;*/
+}

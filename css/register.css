@@ -1,0 +1,77 @@
+@charset "UTF-8";
+.layadmin-user-login{
+	
+	min-height:100%;
+	background:#1F3664;
+	position:absolute;
+	width:100%;
+}
+.layadmin-user-login-main {
+   /* width: 536px;*/
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.layadmin-user-login-box{
+	padding:20px;
+	margin-top:4%;
+	background-color:#fff;
+	border-radius: 4px;
+}
+.layadmin-user-login-icon {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 38px;
+    line-height: 36px;
+    text-align: center;
+    color: #d2d2d2;
+}
+.layadmin-user-login-main .layui-form-item .layui-input {
+    padding-left: 38px;
+}
+
+.layadmin-user-login-main .layui-form-item {
+    position: relative;
+}
+.layui-tab {
+    margin: 10px;margin-top:24px;}
+    .layui-tab-card>.layui-tab-title li{
+    	width:42.5%;
+    }
+    
+.layui-tab-card>.layui-tab-title .layui-this{
+	background-color:#3E5F8E;
+	color:#fff;
+}
+.layadmin-user-login-header{
+	text-align: center;
+	color:#222}
+	.layui-forgot-login{
+		padding:0 10px;
+	}
+.layui-forgot-login div:nth-last-child(1){
+	text-align: right;
+}
+.layui-forgot-login div a{
+	color:#939393;
+	line-height: 30px;
+	}
+.registerbtn{
+	margin-top:10px;
+	border-radius: 4px;
+}
+.layui-input-block{
+	margin-left:0;
+}
+.register .layadmin-user-login-header{
+}
+.register .layadmin-user-login-header h2{
+    font-size: 20px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+
+.register .layadmin-user-login-main .layui-form-item .layui-input{
+		border-radius: 4px;
+	}
+

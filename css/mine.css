@@ -1,0 +1,91 @@
+@charset "UTF-8";
+.mine{
+	padding-top:30px;
+}
+.alter .layui-breadcrumb a{
+	color:#8396BB !important;
+	line-height: 84px;
+	display: inline-block;
+}
+.alter .layui-breadcrumb a cite{
+	color:#fff;
+}
+
+.alter .layui-input-block{
+	margin-left:0;
+}
+
+
+.mine>div>span{
+	color:#fff;
+	display: inline-block;
+	line-height: 84px;
+}
+.mine>div{
+	border-radius: 4px;
+}
+.mine>div>span{
+	color:#fff;
+	padding:18px 0;
+	display: inline-block;
+}
+.mine>div>ul{
+	
+	background-color:#1E2B53;
+	width:90%;
+}
+.mine>div>ul li{
+	width: 100%;
+	text-align: center;
+		height:144px;
+	line-height: 144px;
+	
+}
+.mine>div>ul li:nth-of-type(1){
+
+	border-bottom:1px solid #000;
+}
+.mine>div>ul li span{
+	color:#fff;
+	font-size: 20px;
+}
+.mine>div>ul li i{
+	color:#B8E986;
+	margin-right:10px;
+}
+.mine>div>ul li text{
+	color:#50E3C2;
+}
+.mine>div>ul li text a{
+	color:#016CF5;
+	text-decoration: underline;
+}
+.mine>div>ul li button{
+	width: 168px;
+	height:44px;
+	line-height: 44px;
+	border-radius: 4px;
+
+}
+
+
+
+
+
+ .layui-input{
+	background-color:#1F294E;
+	border:none;
+	color:#12B66E;
+}
+.layui-input::-webkit-input-placeholder{
+    color:#fff;
+}
+.layui-input:-moz-placeholder{
+    color:#fff;
+}
+.layui-input::-moz-placeholder{
+    color:#fff;
+}
+.layui-input:-ms-input-placeholder{
+    color:#fff;
+}

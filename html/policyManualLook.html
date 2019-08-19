@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/policy.css" />
+		<title>查看手动策略</title>		
+	</head>
+	<body>
+		<div class="layui-main policy policyAutoAdd ">
+			<div class="layui-row layui-form">
+				<span class="layui-breadcrumb">
+				  <a href="policy.html">策略设置</a>
+				  <a><cite>查看手动策略</cite></a>
+				</span>
+				<div class="layui-row layui-form-item">
+				 <div class="layui-inline layui-col-md5">
+					<label class="layui-form-label">选择平台</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择平台</option>
+							<option value="0">火币网00</option>
+							<option value="1">火币网01</option>
+							<option value="2">火币网02</option>
+							<option value="3">火币网03</option>
+							<option value="4">火币网04</option>
+						</select>
+					</div>
+				</div>
+				
+				</div>
+				<hr class="layui-bg-black">
+				<form action="" class="policyinput layui-row">
+					<div class="layui-form-item ">
+					    <label class="layui-form-label">仓位</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					      <text>%</text>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">建仓间隔</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item ">
+					    <label class="layui-form-label">买入信号区间</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					      <text>秒</text>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">撤单时间</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					      <text>秒</text>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">止盈率</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					      <text>%</text>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">止损率</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					      <text>%</text>
+					    </div>
+				  	</div>
+				  	
+				  	<div class=" layui-col-md2 layui-col-md-offset5">
+				  		<button type="button" class="layui-btn add">保存</button>
+				  	</div>
+				  	
+				</form>
+				
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form
+			})
+		</script>
+	</body>
+</html>

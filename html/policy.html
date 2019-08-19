@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>策略配置</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/policy.css" />
+	</head>
+	<body>
+		<div class="policy layui-col-md10 layui-col-md-offset1">
+			<div class="layui-row layui-form">
+				<span class="layui-col-md12">自动策略设置</span>
+				<div class="layui-row layui-form-item">
+				 <div class="layui-inline layui-col-md5">
+					<label class="layui-form-label">选择平台</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择平台</option>
+							<option value="0">火币网00</option>
+							<option value="1">火币网01</option>
+							<option value="2">火币网02</option>
+							<option value="3">火币网03</option>
+							<option value="4">火币网04</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline"><button type="button" class="layui-btn add" id="" data-jump="policyAutoAdd">新增</button></div>
+				</div>
+				<ul>
+					<li class="layui-row">
+						<label class="layui-form-label"></label>
+						<span class="layui-col-md6">币安网自动执行策略</span>
+						<button type="button" class="layui-btn inquirebtn" id="" data-jump="policyAutoLook">查看</button>
+					</li>
+					<li>
+						<label class="layui-form-label"></label>
+						<span class="layui-col-md6">OKCOIN自动执行策略</span>
+						<button type="button" class="layui-btn inquirebtn" id="" data-jump="policyAutoLook">查看</button>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+			<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form;
+				var $=layui.$;
+				
+				$(".policy").click(function(event){
+					  var myid = $(event.target).attr('data-jump');
+					var pathName= myid+'.html';
+  					parent.layui.$("#mainBox").attr("src",pathName);
+				})
+			})
+			</script>
+	</body>
+</html>

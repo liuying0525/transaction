@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>收益查询</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin earnings">
+			<div class="layui-header layui-bg-cyan">
+				<div class="" id="headerMain">
+					<div class="layui-logo">LOGO</div>
+					<ul class="layui-nav layui-layout-left" lay-filter="component-nav" id="mainNav">
+						<li class="layui-nav-item">
+							<a href="home.html" target="mainBox">首页</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="apiSetting.html" target="mainBox">API设置</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="policy.html" target="mainBox">策略配置</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="parameterSecond.html" target="mainBox">交易参数设置</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="record.html" target="mainBox">交易记录明细</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="earnings.html" target="mainBox">收益查询</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="mine.html" target="mainBox">我的</a>
+						</li>
+					</ul>
+					<ul class="layui-nav layui-layout-right" id="loginNav">
+						<li class="layui-nav-item">
+							<a href="login.html" target="mainBox">登录</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="register.html" target="mainBox">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--内容主体区域-->
+			<div class="layui-body layui-layout-body home-right">
+					<div class="home-center">
+						<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+							<ul class="layui-tab-title layui-row ">
+								<li class="layui-this layui-col-md3">
+									法币交易
+								</li>
+								<li class="layui-col-md3">币币交易</li>
+								<li class="layui-col-md3">杠杆交易</li>
+								<li class="layui-col-md3">合约交易</li>
+							</ul>
+							<div class="layui-tab-content">
+								<div class="layui-tab-item layui-show">
+									<table class="layui-hide tableModle" id="tableF"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableB"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableG"></table>
+								</div>
+								<div class="layui-tab-item">
+									<table class="layui-hide tableModle" id="tableH"></table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'laydate', 'table'], function() {
+				var element = layui.element;
+				var table = layui.table;
+				var layer = layui.layer;
+				var laydate = layui.laydate;
+				var $ = layui.$;
+
+				function normalSide() {
+					//					$(".layui-side").width("200px");
+					$(".layui-side").removeClass("layui-hide");
+					//					$(".layui-body").css({
+					//						"left": "26.6%"
+					//					});
+
+					if($(".layui-side").width() != "25") {
+
+						$(".divCar i").removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-body").css({
+							"left": "26.6%"
+						});
+					}
+				}
+
+				function hideSide() {
+					$(".layui-side").width("26.6%");
+					$(".layui-side").addClass("layui-hide");
+					$(".layui-body").css({
+						"left": "0px"
+					});
+				}
+
+				$(".divCar").on("click", "i", function() {
+					if($(this).hasClass("layui-icon-left")) {
+						$(this).removeClass("layui-icon-left").addClass("layui-icon-right");
+						$(".layui-side").width("25px");
+						console.log($(window).width());
+						debugger
+						$(".home-right").css({
+							"left": "25px",
+//							"width": "100%"
+"width":$(window).width()-50,
+						}).show("fast");
+						$(".layui-table-view .layui-table").css({
+//							"width": "100%"
+"width":$(window).width()-50,
+						}).show("fast");
+					} else {
+						$(this).removeClass("layui-icon-right").addClass("layui-icon-left");
+						$(".layui-side").width("26.6%");
+
+						$(".home-right").css({
+							"left": "26.6%",
+							"width": "73.4%"
+						}).show("fast");
+							$(".layui-table-view .layui-table").css({
+							"width": "auto"
+						}).show("fast");
+					}
+//					tableData();
+				});
+				
+				tableData();
+				
+				$(".test-item").each(function() {
+					laydate.render({
+						elem: this,
+						trigger: "click",
+						//		theme: '#1F294E'
+					})
+				})
+				element.on('tab(docDemoTabBrief)', function(data) {
+					console.log(this); //当前Tab标题所在的原始DOM元素
+					console.log(data.index); //得到当前Tab的所在下标
+					console.log(data.elem); //得到当前的Tab大容器
+				});
+
+				function tableData() {
+					$(".tableModle").each(function() {
+						table.render({
+							elem: this,
+							url: 'FeHelper-20190704151843.json',
+//							cellMinWidth: 60, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+
+							cols: [
+								[{
+										field: 'id',
+										title: '平台名称',
+										sort: true
+									}, {
+										field: 'username',
+										title: '货币名称',
+										sort: true
+									}, {
+										field: 'sex',
+										title: '运行状态'
+									}, {
+										field: 'city',
+										title: '卖出价'
+									}, {
+										field: 'sign',
+										title: '卖挂单数'
+									} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+									, {
+										field: 'experience',
+										title: '买入价'
+									}, {
+										field: 'score',
+										title: '买挂单数'
+									}, {
+										field: 'classify',
+										title: '最小交易量'
+									}, {
+										field: 'wealth',
+										title: '持仓数'
+									}, {
+										field: 'score',
+										title: '持仓均价'
+									}, {
+										field: 'score',
+										title: '持仓费用'
+									}, {
+										field: 'score',
+										title: '收益比'
+									}
+								]
+							],
+							skin: "nob",
+							done: function(res, curr, count) {
+
+								//如果是异步请求数据方式，res即为你接口返回的信息。
+								//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+								console.log(res);
+
+								//得到当前页码
+								console.log(curr);
+
+								//得到数据总量
+								console.log(count);
+							}
+						});
+					})
+				}
+				parent.layui.$("#mainNav").on("click", 'li:eq(1)', function() {
+					layer.open({
+						skin: 'layui-layer-demo',
+						type: 1,
+						title: ['API设置'],
+						content: $("#demo")
+					});
+				})
+
+			})
+		</script>
+		
+		
+		
+	</body>
+
+</html>

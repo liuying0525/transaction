@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/register.css"/>
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin">
+			<div class="layadmin-user-login register">
+				<div class="layui-main layui-row">
+					<div class="layadmin-user-login-main">
+						<div class="layadmin-user-login-box layui-col-md4 layui-col-md-offset4">
+							<div class="layadmin-user-login-header">
+								<h2>注册账户</h2>
+							</div>						
+								<div class="layui-form-item">
+									<label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="LAY-user-login-cellphone"></label>
+									<input type="text" name="cellphone" id="LAY-user-login-cellphone" lay-verify="phone" placeholder="手机号码" class="layui-input" />
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-row">
+										<div class="layui-col-xs7">
+											<label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
+											<input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="验证码" class="layui-input" />
+										</div>
+										<div class="layui-col-xs5">
+											<button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" id="LAY-user-reg-getsmscode">获取验证码</button>
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+									<input type="password" name="password" id="LAY-user-login-password" lay-verify="pass" placeholder="密码" class="layui-input" />
+								</div>
+									<div class="layui-form-item">
+									<label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-repass"></label>
+									<input type="password" name="repass" id="LAY-user-login-repass" lay-verify="required" placeholder="确认密码" class="layui-input" />
+								</div>
+								
+					
+							
+							<div class="layui-row layui-forgot-login">
+								<!--<div class="layui-col-md6" ><a href="#">用户登录</a></div>-->
+								<div class="layui-col-md6 layui-col-md-offset6"><a href="login.html">已有账号登录</a></div>
+								
+								
+							</div>
+							<button type="button" class="layui-btn layui-btn-fluid registerbtn">注册</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form'], function(){
+			    var form = layui.form;
+				var element = layui.element;
+					var $ = layui.$;
+  
+  				var InterValObj;//timer变量，控制时间
+  				var count=60;//间隔时间
+  				var curCount;//当前剩余秒数
+  				
+  				$(document).on("click","#LAY-user-reg-getsmscode",function(){
+  					sendMessage();
+  				})
+  				
+  				//发送短信验证码
+  				function sendMessage(){
+  					curCount=count;
+  					$("#LAY-user-reg-getsmscode").attr("disabled",true).text(curCount + "秒后重获");
+  					InterValObj=setInterval(SetRemainTime,1000)//启动计时器timer处理函数，1秒执行一次
+  					
+  					//向后台发送处理数据，请求后台发送验证短信
+  					$.ajax({
+  						type:"POST",
+  						dataType:"text",
+  						url:"",
+  						data:$("#LAY-user-login-cellphone").val(),
+  						success:function(data){
+  							data=parseInt(data,10);
+  							if(data==1){
+  								layer.msg('短信验证码已发送到您的手机，请查收')
+  							}else if(data==0){
+  								layer.msg("短信验证码发送失败，请重新发送")
+  								clearInterval(InterValObj);
+  								$("#LAY-user-reg-getsmscode").removeAttr("disabled").text("重获验证码");
+  							}
+  						}
+  					})
+  				}
+  				
+  				//timer处理函数
+  				function SetRemainTime(){
+  					if(curCount==0){//超时重新获取验证码
+  						clearInterval(InterValObj);//停止计时器
+  						$("#LAY-user-reg-getsmscode").removeAttr("disabled").text("重获验证码");
+  						
+  					}else{
+  						curCount--;
+  						$("#LAY-user-reg-getsmscode").text(curCount + "秒后重获");
+  					}
+  				}
+ 
+});
+		</script>
+	</body>
+</html>

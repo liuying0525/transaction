@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>交易记录明细</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/record.css" />
+	</head>
+
+	<body>
+		<div class="record layui-col-md12">
+			<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title layui-row">
+					<li class="layui-this layui-col-md3">合约交易</li>
+					<li class="layui-col-md3">币币交易</li>
+					<li class="layui-col-md3">杠杆交易</li>
+					<li class="layui-col-md3">法币交易</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show">
+						<div class="layui-form">
+							<div class="layui-row layui-form-item">
+								<div class="layui-col-md4 platform">
+									<label class="layui-form-label">平台名称</label>
+									<div class="">
+										<select name="interest" lay-filter="">
+											<option value="">请选择平台</option>
+											<option value="0">火币网00</option>
+											<option value="1">火币网01</option>
+											<option value="2">火币网02</option>
+											<option value="3">火币网03</option>
+											<option value="4">火币网04</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-col-md8">
+									<label class="layui-form-label">货币类型</label>
+									<div>
+										<input type="checkbox" name="check[]" title="BTC" lay-skin="primary" checked class="mtype" lay-filter="c_one" >
+										<input type="checkbox" name="check[]" title="ETH" lay-skin="primary" class="mtype" lay-filter="c_one"> 
+										<input type="checkbox" name="check[]" title="全部" lay-skin="primary" lay-filter="c_all" class="mtype">
+										<input type="checkbox" name="check[]" title="EOS" lay-skin="primary" class="mtype" lay-filter="c_one">
+										<input type="checkbox" name="check[]" title="XRP" lay-skin="primary" class="mtype" lay-filter="c_one">
+										<input type="checkbox" name="check[]" title="LTC" lay-skin="primary" class="mtype" lay-filter="c_one">
+									</div>
+								</div>
+								
+								</div>
+							<div class="layui-form-item layui-row">
+								<div class="layui-col-md5">
+									 <div class="layui-input-inline">
+									 <input type="text" class="layui-input" id="date3" placeholder="按月查询">
+									 </div>
+									  <div class="layui-input-inline">
+									  <input type="text" class="layui-input" id="date1" placeholder="按周查询">
+									  </div>
+								</div>
+								<div class="layui-col-md5 inputdate">
+									<input type="text" class="layui-input" id="fromDate" placeholder="按日查询">
+
+									<span>至</span>
+									<input type="text" class="layui-input" id="toDate" placeholder="按日查询">
+
+								</div>
+								<button type="button" class="layui-btn layui-btn-primary layui-col-md2 inquirebtn">查询</button>
+							</div>
+						</div>
+						<div class="layui-row">
+							<table class="layui-hide tableModle" id="tableRecord"></table>
+						</div>
+					</div>
+					<div class="layui-tab-item layui-show">
+						2
+					</div>
+					<div class="layui-tab-item layui-show">
+						3
+					</div>
+					<div class="layui-tab-item layui-show">
+						4
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery', 'form', 'laydate', 'table'], function() {
+				var form = layui.form;
+				var laydate = layui.laydate;
+				var table = layui.table;
+				var $ = layui.$;
+				form.render();
+				laydate.render({
+					elem: "#fromDate",
+					trigger: "click",
+				})
+				laydate.render({
+					elem: "#toDate",
+					trigger: "click",
+				})
+				  laydate.render({
+				    elem: '#date3'
+				    ,type: 'month'
+				  });
+				   laydate.render({
+    elem: '#date1'
+  });
+				  
+
+				table.render({
+					elem: "#tableRecord",
+					url: 'FeHelper-20190704151843.json',
+					cellMinWidth: 80,
+					cols: [
+						[{
+								field: 'id',
+								title: '平台名称',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'username',
+								title: '货币名称',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'sex',
+								title: '交易时间',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'city',
+								title: '交易类型',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'sign',
+								title: '交易状态',
+								sort: true,
+								align: 'center'
+							} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+							, {
+								field: 'experience',
+								title: '交易价格',
+								sort: true,
+								align: 'center'
+							}
+							, {
+								field: 'experience',
+								title: '交易数量',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'score',
+								title: '手续费',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'classify',
+								title: '收益',
+								sort: true,
+								align: 'center'
+							}, {
+								field: 'wealth',
+								title: '说明',
+								minWidth: 100,
+								align: 'center'
+							},
+						]
+					],
+					skin: "nob",
+					done: function(res, curr, count) {
+
+						//如果是异步请求数据方式，res即为你接口返回的信息。
+						//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+						console.log(res);
+
+						//得到当前页码
+						console.log(curr);
+
+						//得到数据总量
+						console.log(count);
+						
+						
+					}
+				});
+				
+				form.on('checkbox',function(data){
+					if(data.elem.checked==false){
+						$(data.elem).siblings("input[lay-filter='c_all']")[0].checked=false;
+					}else{
+						var c_oneList=[]
+						$(data.elem).siblings("input[lay-filter='c_one']").each(function(index,item){
+							if(item.checked==true){
+								c_oneList.push(item);
+							
+							}
+						})
+						if(c_oneList.length>=4){
+							$("input[lay-filter='c_all']")[0].checked=true;
+						}
+					}
+					form.render('checkbox');	
+				})
+				
+form.on('checkbox(c_all)',function(data){
+	$("input[name='check[]']").each(function(){
+		this.checked=data.elem.checked;
+		//console.log(data);
+	});
+	form.render('checkbox');	
+
+})
+			});
+		</script>
+	</body>
+
+</html>

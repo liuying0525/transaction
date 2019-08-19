@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>API设置</title>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/apiSetting.css"/>
+	</head>
+	<body>
+		<div class="apiSetting layui-col-md10 layui-col-md-offset1">
+			<form class="layui-form" action="" lay-filter="">
+				<div class="layui-form-item layui-row">
+					<div class="layui-col-md12">
+						<label class="layui-form-label" for="">请选择平台</label>
+					<div class="layui-input-block">
+						<select name="selectPlatform" id="">
+							<option value="">请选择交易平台</option>
+							<option value="0">火币网</option>
+							<option value="1">火币网</option>
+							<option value="2">火币网</option>
+							<option value="3">火币网</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="layui-form-item layui-row">
+					<div class="layui-col-md12">
+						<label class="layui-form-label" for="">请输入平台账号</label>
+						<div class="layui-input-block">
+							<input type="text" name="account" lay-verify="" autocomplete="off" class="layui-input"/>
+							<span class="cardtips"><i class="layui-icon layui-icon-jinggao-copy font"></i>平台账号是指您在对应交易平台注册的账号</span>
+						</div>
+						
+					</div>
+				</div>
+				<div class="layui-form-item layui-row">
+					<div class="layui-col-md12">
+						<label class="layui-form-label" for="">AccessKey</label>
+						<div class="layui-input-block">
+							<input type="text" name="AccessKey" lay-verify="" autocomplete="off" class="layui-input"/>
+						</div>
+					</div>	
+				</div>
+				<div class="layui-form-item layui-row">
+					<div class="layui-col-md12">
+						<label class="layui-form-label" for="">AccessKey</label>
+						<div class="layui-input-block">
+							<input type="text" name="AccessKey" lay-verify="" autocomplete="off" class="layui-input"/>
+						</div>
+					</div>	
+				</div>
+				<div class="layui-row">
+					<button type="button" class="layui-btn layui-btn-primary layui-col-md2 layui-col-md-offset4 interlinkage">链接</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-col-md2 add">新增</button>
+				</div>			
+			</form>
+			<hr class="layui-bg-black">
+			<div class="layui-row apisettingBt">
+				<div class="layui-col-md12 text">当前已链接</div>
+				<ul class="layui-col-md12">
+					<li class="layui-row">
+						<span class="layui-col-md1">火币网</span>
+						<span class="layui-col-md10">账号:
+							<span>135*****4756</span>
+						</span>
+						<a  class="layui-col-md1" href="javascript:void(0);">断开</a>
+					</li>
+					<li class="layui-row">
+						<span class="layui-col-md1">火币网</span>
+						<span class="layui-col-md10">账号:
+							<span>135*****4756</span>
+						</span>
+						<a  class="layui-col-md1" href="javascript:void(0);">断开</a>
+					</li>
+					<li class="layui-row">
+						<span class="layui-col-md1">火币网</span>
+						<span class="layui-col-md10">账号:
+							<span>135*****4756</span>
+						</span>
+						<a  class="layui-col-md1" href="javascript:void(0);">断开</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form'], function() {
+				var form=layui.form;
+				form.render();
+			});
+		</script>
+	</body>
+</html>

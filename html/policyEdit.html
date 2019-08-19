@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/policyB.css" />
+		<title>编辑策略</title>		
+	</head>
+	<body>
+		<div class="policy policyAutoAdd ">
+			<div class="layui-form">
+				<div class="layui-form-item layui-row ">
+				 <div class="layui-col-sm4">
+					<label class="layui-form-label">选择平台</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择平台</option>
+							<option value="0">火币网00</option>
+							<option value="1">火币网01</option>
+							<option value="2">火币网02</option>
+							<option value="3">火币网03</option>
+							<option value="4">火币网04</option>
+						</select>
+					</div>
+				</div>
+					 <div class="layui-col-sm4">
+					<label class="layui-form-label">请选择币种</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择币种</option>
+							<option value="0" selected="">BTC</option>
+							<option value="1">BTC01</option>
+							<option value="2">BTC02</option>
+							<option value="3">BTC03</option>
+							<option value="4">BTC04</option>
+						</select>
+					</div>
+				</div>
+					 <div class="layui-col-sm4 checkedTime">
+					<label class="layui-form-label" >请选择合约时间</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择合约时间</option>
+							<option value="0" selected="">当周</option>
+							<option value="1">下周</option>
+							<option value="2">火币网02</option>
+							<option value="3">火币网03</option>
+							<option value="4">火币网04</option>
+						</select>
+					</div>
+				</div>
+				
+				</div>
+							<div class="layui-row layui-form-item">
+				 <div class="layui-col-sm4">
+					<label class="layui-form-label">请选择分时</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择分时</option>
+							<option value="0" selected="">15min</option>
+							<option value="1">5min</option>
+							<option value="2">10min</option>
+							<option value="3">20min</option>
+							<option value="4">25min</option>
+						</select>
+					</div>
+				</div>
+				
+					 <div class="layui-col-sm4 checkedRdtime">
+					<label class="layui-form-label">请选择熔断分时</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择熔断分时</option>
+							<option value="0" selected="">1d</option>
+							<option value="1">2d</option>
+							<option value="2">3d</option>
+							<option value="3">4d</option>
+							<option value="4">5d</option>
+						</select>
+					</div>
+				</div>
+				
+				</div>
+				<hr class="layui-bg-black">
+				<form action="" class="policyinput layui-row">
+					<div class="layui-form-item layui-row">
+						<div class="layui-col-sm6">
+					    <label class="layui-form-label">仓位</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					      <text>%</text>
+					    </div>
+					    </div>
+					    <div class="layui-col-sm6">
+					    	<label class="layui-form-label">止损率</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					      <text>%</text>
+					    </div>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item layui-row">
+				  			<div class="layui-col-sm6">
+					    <label class="layui-form-label">开仓档位</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					      
+					    </div>
+					    </div>
+					    <div class="layui-col-sm6">
+					    <label class="layui-form-label">开仓每档挂单价</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					   
+					    </div>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item layui-row">
+					    	<div class="layui-col-sm6">
+					    <label class="layui-form-label">平仓档位</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					      
+					    </div>
+					    </div>
+					    	<div class="layui-col-sm6">
+					    <label class="layui-form-label">平仓每档挂单价</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					   
+					    </div>
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item layui-row">
+				  			<div class="layui-col-sm6">
+					    <label class="layui-form-label">平仓时间限制</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					      <text>秒</text>
+					    </div>
+					    </div>
+					    	<div class="layui-col-sm6">
+					    <label class="layui-form-label">放大交易倍数</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					   
+					    </div>
+					    </div>
+				  	</div>
+				  	
+				  	<div class=" layui-col-sm2 layui-col-sm-offset5">
+				  		<button type="button" class="layui-btn add">新增</button>
+				  	</div>
+				  	
+				</form>
+				
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form
+			})
+		</script>
+	</body>
+</html>

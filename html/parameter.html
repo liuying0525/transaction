@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/policy.css" />
+		<title>交易参数设置</title>		
+	</head>
+	<body>
+		<div class="layui-main policy policyAutoAdd parameter">
+			<div class="layui-row layui-form">
+				
+				<div class="layui-row layui-form-item">
+				 <div class="layui-col-md5">
+					<label class="layui-form-label">平台名称</label>
+					<div class="layui-input-block">
+						<select name="interest" lay-filter="">
+							<option value="">请选择平台</option>
+							<option value="0">火币网00</option>
+							<option value="1">火币网01</option>
+							<option value="2">火币网02</option>
+							<option value="3">火币网03</option>
+							<option value="4">火币网04</option>
+						</select>
+					</div>
+				</div>
+				
+				</div>
+				<hr class="layui-bg-black">
+				<form action="" class="policyinput layui-row">
+					<div class="layui-form-item ">
+					    <label class="layui-form-label">KDJ分时</label>
+					    <div class="layui-col-md5">
+							<select name="interest" lay-filter="">
+									<option value="">请选择时长</option>
+									<option value="0">3min</option>
+									<option value="1">4min</option>
+									<option value="2" selected="">5min</option>
+									<option value="3">6min</option>
+									<option value="4">7min</option>
+								</select>
+						</div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">KDJ值</label>
+					    <div class="layui-col-md5">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					  
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item ">
+						  	<label class="layui-form-label">RSI分时</label>
+						    <div class="layui-col-md5">
+								<select name="interest" lay-filter="">
+									<option value="">请选择时长</option>
+									<option value="0">3min</option>
+									<option value="1">4min</option>
+									<option value="2" selected="">5min</option>
+									<option value="3">6min</option>
+									<option value="4">7min</option>
+								</select>
+							</div>
+				  		</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">RSI买入值</label>
+					    <div class="layui-col-md5">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					    
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item">
+					    <label class="layui-form-label">RSI卖出值</label>
+					    <div class="layui-col-md5">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+					     
+					    </div>
+				  	</div>
+				  	 	<div class="layui-form-item ">
+						  	<label class="layui-form-label">WR分时</label>
+						    <div class="layui-col-md5">
+								<select name="interest" lay-filter="">
+									<option value="">请选择时长</option>
+									<option value="0">3min</option>
+									<option value="1">4min</option>
+									<option value="2" selected="">5min</option>
+									<option value="3">6min</option>
+									<option value="4">7min</option>
+								</select>
+							</div>
+				  		</div>
+				  		<div class="layui-form-item layui-row">
+					    <label class="layui-form-label">WR买入值</label>
+					    <div class="layui-col-md5">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					  
+					    </div>
+				  	</div>
+				  		<div class="layui-form-item layui-row">
+					    <label class="layui-form-label">WR卖出值</label>
+					    <div class="layui-col-md5">
+					      <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input">
+					  
+					    </div>
+				  	</div>
+				  	<div class=" layui-col-md2 layui-col-md-offset5">
+				  		<button type="button" class="layui-btn add">保存</button>
+				  	</div>
+				  	
+				</form>
+				
+			</div>
+		</div>
+		<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			layui.use(['element', 'jquery','form','laydate', 'table'], function() {
+				var form=layui.form
+			})
+		</script>
+	</body>
+</html>
